@@ -145,5 +145,7 @@ def main():
             set_pattern(i)
             time.sleep(5)
 
+_init(1)
+
 if __name__ == "__main__":
     main()
