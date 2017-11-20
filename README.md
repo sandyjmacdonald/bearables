@@ -70,7 +70,7 @@ while True:
 
 The `set_led()` function takes two arguments, the LED number from `0` to `11`, and a brightness value from `0.0` to `1.0`. There's also a `set_all()` function that takes a single argument, the brightness value from `0.0` to `1.0`.
 
-### Button
+### Button presses
 
 Button press events can be linked to functions using the `@on_press` decorator. The function to which the decorator is attached will fire every time the button is pressed. Here's an example that turns all of the LEDs on for two seconds when the button is pressed:
 
@@ -89,4 +89,19 @@ def handle_press(self):
 
 while True:
     pass
+```
+
+### ADC
+
+The two sewable hooks on the back of the badges read raw ADC (analogue to digital converter) values (0-255) and can be used to read values from analog sensors like the Bearables sensors. You could also use them to read pins that are pulled high or low on attached microprocessors.
+
+Here's an example that reads the ADC value across the hooks:
+
+```
+import time
+from bearables import read_adc
+
+while True:
+    print(read_adc())
+    time.sleep(0.2)
 ```
