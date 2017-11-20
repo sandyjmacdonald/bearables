@@ -68,6 +68,25 @@ while True:
         time.sleep(0.05)
 ```
 
-The `set_led()` function takes two arguments, the LED number from `0` to `11`, and a brightness value from `0.0` to `1.0`.
+The `set_led()` function takes two arguments, the LED number from `0` to `11`, and a brightness value from `0.0` to `1.0`. There's also a `set_all()` function that takes a single argument, the brightness value from `0.0` to `1.0`.
 
-There's also a `set_all()` function that takes a single argument, the brightness value from `0.0` to `1.0`.
+### Button
+
+Button press events can be linked to functions using the `@on_press` decorator. The function to which the decorator is attached will fire every time the button is pressed. Here's an example that turns all of the LEDs on for two seconds when the button is pressed:
+
+```
+import time
+from bearables import set_all, show, clear, on_press
+
+@on_press
+def handle_press(self):
+    set_all(1.0)
+    show()
+    print("Button pressed!!")
+    time.sleep(2)
+    clear()
+    show()
+
+while True:
+    pass
+```
