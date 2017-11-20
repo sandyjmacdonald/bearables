@@ -29,3 +29,45 @@ The pads, from left to right, are as follows:
 The easiest way to connect the badge to your Pi's GPIO is with a piece of right-angled male header soldered to the pads, and some female to female jumper jerky. Connect the SDA and SCL pins to your Pi's [SDA and SCL pins](https://pinout.xyz/pinout/i2c) and the 3V3 and GND to 3V3 power and ground respectively.
 
 The badge should light up when connected. You can check that the I2C is being detected by typing `sudo i2cdetect -y 1`. It should show up with address `0x15`.
+
+## Examples
+
+There are a number of examples in the [bearables/examples](examples) directory.
+
+## Functionality
+
+### LED patterns
+
+The `set_pattern()` function allows you to select one of the 12 preset patterns on the badge, numbered from 0 to 11.
+
+```
+import time
+from bearables import set_pattern
+
+while True:
+    for i in range(12):
+        set_pattern(i)
+        time.sleep(5)
+```
+
+### LED control
+
+The `set_led()`, `set_all()`, `show()`, and `clear()` functions allow control of the LEDs, for programming your own patterns. The `show()` function must always be called after setting or clearing any LEDs, to display the changes on the badge's LEDs.
+
+Here's an example of how to cycle round the badge's LEDs at full brightness:
+
+```
+import time
+from bearables import set_led, show, clear
+
+while True:
+    for i in range(12):
+        clear()
+        set_led(i, 1.0)
+        show()
+        time.sleep(0.05)
+```
+
+The `set_led()` function takes two arguments, the LED number from `0` to `11`, and a brightness value from `0.0` to `1.0`.
+
+There's also a `set_all()` function that takes a single argument, the brightness value from `0.0` to `1.0`.
