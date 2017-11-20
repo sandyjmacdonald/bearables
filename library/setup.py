@@ -40,12 +40,12 @@ setup(
     author          = 'Sandy Macdonald',
     author_email    = 'sandyjmacdonald@gmail.com',
     description     = """Python library to control Bearables badges""",
-    long_description= open('README.txt').read(),
+    long_description= open('../README.md').read(),
     license         = 'MIT',
     keywords        = 'Raspberry Pi',
     url             = '',
     classifiers     = classifiers,
     packages        = ['bearables'],
     py_modules      = [],
-    install_requires= ['smbus']
+    install_requires= []
 )
