@@ -7,7 +7,7 @@ clear()
 show()
 
 while True:
-    for i in range(1, 50) + range(50, 0, -1):
+    for i in list(range(1, 50)) + list(range(50, 0, -1)):
         set_all(1.0 / i)
         show()
         time.sleep(0.01)
