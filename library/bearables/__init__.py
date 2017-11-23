@@ -32,9 +32,6 @@ def _init(led_mode):
     _t_poll.daemon = True
     _t_poll.start()
 
-    clear()
-    show()
-
     atexit.register(_quit)
 
 def _run():
@@ -103,6 +100,7 @@ def show():
     """Displays any set pixels.
     """
     global LEDS, _bus, _pack_leds, ADDR
+    _init(1)
     packed = _pack_leds(LEDS)
     _bus.write_i2c_block_data(ADDR, 0b00000001, packed)
 
@@ -144,8 +142,6 @@ def main():
         for i in range(12):
             set_pattern(i)
             time.sleep(5)
-
-_init(1)
 
 if __name__ == "__main__":
     main()
