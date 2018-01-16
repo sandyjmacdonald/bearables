@@ -10,12 +10,15 @@ _t_poll = None
 _running = False
 _last_state = 0
 
+retries = 4
+
 ADDR = 0x15
 LEDS = [0] * 12
 
 class Handler():
     def __init__(self):
         self.press = None
+        press = None
 
 _handler = Handler()
 
@@ -26,7 +29,18 @@ def _init(led_mode):
         return
 
     _bus = SMBus(i2c_bus_id())
-    _bus.write_byte_data(ADDR, 0b00000000, 0b00010000 + led_mode)
+
+    errors = 0
+
+    for x in range(retries):
+        try:
+            _bus.write_byte_data(ADDR, 0b00000000, 0b00010000 + led_mode)
+        except IOError:
+            errors += 1
+            time.sleep(0.001)
+
+    if errors == retries:
+        raise RuntimeError("Unable to communicate with badge!")
 
     _t_poll = Thread(target=_run)
     _t_poll.daemon = True
@@ -61,6 +75,7 @@ def _quit():
 
     _running = False
     _t_poll.join()
+    _bus.write_byte_data(ADDR, 0b00000000, 0b00000000)
 
 def _pack_leds(leds):
     return [(leds[x] & 0b1111) << 4 | (leds[x+1] & 0b1111) for x in range(0,12,2)]
@@ -102,7 +117,17 @@ def show():
     global LEDS, _bus, _pack_leds, ADDR
     _init(1)
     packed = _pack_leds(LEDS)
-    _bus.write_i2c_block_data(ADDR, 0b00000001, packed)
+    errors = 0
+
+    for x in range(retries):
+        try:
+            _bus.write_i2c_block_data(ADDR, 0b00000001, packed)
+        except IOError:
+            errors += 1
+            time.sleep(0.001)
+
+    if errors == retries:
+        raise RuntimeError("Unable to communicate with badge!")
 
 def set_pattern(pattern):
     """Set the pattern of the LEDs.
