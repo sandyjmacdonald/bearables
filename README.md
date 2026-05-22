@@ -1,3 +1,12 @@
+> [!IMPORTANT]
+> **This repository has moved to Codeberg.**
+>
+> Active development now happens at **[https://codeberg.org/sandyjmacdonald/bearables](https://codeberg.org/sandyjmacdonald/bearables)**.
+>
+> This GitHub copy is archived and read-only. Please file issues, open pull requests, and follow the project on Codeberg.
+
+---
+
 # Bearables
 
 The Pimoroni [Bearables badges](https://shop.pimoroni.com/collections/bearables) include an I2C interface via the 5 programming pads on the reverse of the badges allowing basic control of the LED patterns, the individual LEDs, the button, and the ADC reading across the hooks when connected to a sensor, for example. This library exposes those functions.
